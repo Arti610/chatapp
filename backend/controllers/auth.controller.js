@@ -31,7 +31,7 @@ export const register = async (req, res) => {
     });
 
     if (newUser) {
-      await generateTokenAndSetCookie(newUser._id, res);
+      generateTokenAndSetCookie(newUser._id, res);
       await newUser.save();
       res.status(201).json({
         _id: newUser._id,
@@ -52,19 +52,17 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;            
-    console.log("username", username, "password", password, typeof password);      
+    
     const user = await User.findOne({ username }); 
 
     if (!user) {
       return res.status(400).json({ error: "User with this username does not exist" });
     }
 
-    console.log('password',password);
-    console.log(' user.password', user.password);
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password || "");
 
-    console.log("isPasswordCorrect", isPasswordCorrect);
+  
 
     if (!isPasswordCorrect) {
       return res.status(400).json({ error: "Invalid Credentials" });
