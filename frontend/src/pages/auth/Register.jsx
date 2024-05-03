@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import GenderCheckbox from "../../components/GenderCheckbox";
+import useSignup from "../../hooks/useSignup";
 
 const Register = () => {
   const [formValue, setFormValue] = useState({
     name: "",
-    email: "",
-    passward: "",
-    confirm_passwoard: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
     gender: "",
   });
+
+  const {loading, signup} = useSignup();
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -19,11 +22,15 @@ const Register = () => {
     }));
   };
 
-  const handleCheckbox = async (e) => {
-    console.log("e", e.target.value);
+  const handleCheckbox =  (gender) => {
+    setFormValue({...formValue, gender})
+  };
+ 
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    await signup(formValue);
   };
 
-  const handleSubmit = () => {};
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -36,7 +43,7 @@ const Register = () => {
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
-          <form className="card-body">
+          <form className="card-body" onSubmit={handleSubmit}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -44,6 +51,7 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="name"
+                name="name"
                 className="input input-bordered"
                 onChange={handleChange}
                 required
@@ -51,11 +59,12 @@ const Register = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text">Username</span>
               </label>
               <input
-                type="email"
-                placeholder="example@gmail.com"
+                type="text"
+                name="username"
+                placeholder="username"
                 className="input input-bordered"
                 onChange={handleChange}
                 required
@@ -69,6 +78,7 @@ const Register = () => {
               <input
                 type="password"
                 placeholder="password"
+                name="password"
                 className="input input-bordered"
                 onChange={handleChange}
                 required
@@ -80,6 +90,7 @@ const Register = () => {
               </label>
               <input
                 type="password"
+                name="confirmPassword"
                 placeholder="Confirm Password"
                 className="input input-bordered"
                 onChange={handleChange}
@@ -87,15 +98,13 @@ const Register = () => {
               />
             </div>
             <div className="form-control">
-              <GenderCheckbox />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Already have an account ?
-                </a>
-              </label>
+              <GenderCheckbox onCheckboxChange={handleCheckbox} selectedGender={formValue.gender}/>
+              <label className="label"><a href="#" className="label-text-alt link link-hover">Already have an account ?</a></label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Register</button>
+              <button className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading} type="submit">
+                {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
+              </button>
             </div>
           </form>
         </div>

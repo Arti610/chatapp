@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateTokens.js";
 
 export const register = async (req, res) => {
+  console.log('Register Request', req);
   try {
     const { name, username, password, confirmPassword, gender } = req.body;
     if (password != confirmPassword) {
@@ -59,10 +60,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "User with this username does not exist" });
     }
 
-
     const isPasswordCorrect = await bcrypt.compare(password, user.password || "");
-
-  
 
     if (!isPasswordCorrect) {
       return res.status(400).json({ error: "Invalid Credentials" });
