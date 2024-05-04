@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GenderCheckbox from "../../components/GenderCheckbox";
 import useSignup from "../../hooks/useSignup";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formValue, setFormValue] = useState({
@@ -11,7 +12,7 @@ const Register = () => {
     gender: "",
   });
 
-  const {loading, signup} = useSignup();
+  const { loading, signup } = useSignup();
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -22,11 +23,11 @@ const Register = () => {
     }));
   };
 
-  const handleCheckbox =  (gender) => {
-    setFormValue({...formValue, gender})
+  const handleCheckbox = (gender) => {
+    setFormValue({ ...formValue, gender });
   };
- 
-  const handleSubmit = async(e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(formValue);
   };
@@ -98,12 +99,27 @@ const Register = () => {
               />
             </div>
             <div className="form-control">
-              <GenderCheckbox onCheckboxChange={handleCheckbox} selectedGender={formValue.gender}/>
-              <label className="label"><a href="#" className="label-text-alt link link-hover">Already have an account ?</a></label>
+              <GenderCheckbox
+                onCheckboxChange={handleCheckbox}
+                selectedGender={formValue.gender}
+              />
+              <label className="label">
+                <Link to="/login" className="label-text-alt link link-hover">
+                  Already have an account ?
+                </Link>
+              </label>
             </div>
             <div className="form-control mt-6">
-              <button className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading} type="submit">
-                {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
+              <button
+                className="btn btn-primary"
+                disabled={loading}
+                type="submit"
+              >
+                {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Register"
+                )}
               </button>
             </div>
           </form>

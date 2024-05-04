@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateTokens.js";
 
 export const register = async (req, res) => {
-  console.log('Register Request', req);
+
   try {
     const { name, username, password, confirmPassword, gender } = req.body;
     if (password != confirmPassword) {
@@ -51,6 +51,7 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  console.log('Login Request', req);
   try {
     const { username, password } = req.body;            
     

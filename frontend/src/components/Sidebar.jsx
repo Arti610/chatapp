@@ -1,6 +1,8 @@
 import React from "react";
 import SearchInput from "./SearchInput";
 import Conversations from "./Conversations";
+import LogoutButton from "./LogoutButton";
+
 
 const Sidebar = () => {
   return (
@@ -16,6 +18,7 @@ const Sidebar = () => {
         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
           <SearchInput />
           <Conversations />
+          <LogoutButton/>
         </ul>
       </div>
     </div>

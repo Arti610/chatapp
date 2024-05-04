@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
+  const { loading, login } = useLogin();
+  const [formValue, setFormValue] = useState({ username: "", password: "" });
+
+  const handleChange = async (e) => {
+    const { name, value } = e.target;
+    setFormValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(formValue);
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -13,36 +31,48 @@ const Login = () => {
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
-          <form className="card-body">
+          <form className="card-body" onSubmit={handleSubmit}>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text">Username</span>
               </label>
               <input
-                type="email"
-                placeholder="email"
+                type="username"
+                placeholder="username"
                 className="input input-bordered"
                 required
+                name="username"
+                onChange={handleChange}
               />
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
+
               <input
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
                 required
+                name="password"
+                onChange={handleChange}
               />
+
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
+                <Link to="/register" className="label-text-alt link link-hover">
+                  Don't have an account ?
+                </Link>
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary" type="submit">
+              {loading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  "Login"
+                )}
+              </button>
             </div>
           </form>
         </div>
