@@ -51,7 +51,7 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  console.log('Login Request', req);
+ 
   try {
     const { username, password } = req.body;            
     
@@ -67,14 +67,15 @@ export const login = async (req, res) => {
       return res.status(400).json({ error: "Invalid Credentials" });
     }
 
-    generateTokenAndSetCookie(user._id, res);
+    const token = generateTokenAndSetCookie(user._id, res);
+
     return res.status(200).json({
       _id: user._id,
       name: user.name,
       username: user.username,
       gender: user.gender,
       avatar: user.avatar,
-      // token: generateToken(user._id)
+      token: token
     });
   } catch (error) {
     console.log("User login error", error);
