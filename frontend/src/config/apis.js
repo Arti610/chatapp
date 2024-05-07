@@ -6,5 +6,6 @@ export default {
   logout: () => api.post(`/auth/logout`),
   getConversations: () => api.get("/users"),
   sendMessage: (id, payload) => api.post(`/message/send/${id}`, payload),
-  getMessage: (id) => api.post(`/message/${id}`),
+  // getMessage: (id) => api.get(console.log('id',id)),
+  getMessage: (id) => api.get(`/message/${id}`),
 };

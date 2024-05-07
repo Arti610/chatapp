@@ -4,7 +4,6 @@ import messageRoute from './routes/message.route.js';
 import userRoute from './routes/user.route.js';
 import cookieParser from "cookie-parser";
 import cors from 'cors'
-import protectRoute from "./middleware/protectRoute.js";
 
 const app = express();
 
@@ -16,9 +15,8 @@ app.use(cors({
     credentials : true
 }))
 
-
 app.use('/api/auth', authRoute);
 app.use('/api/message', messageRoute);
-app.use('/api/users', userRoute )
+app.use('/api/users', userRoute );
 
 export default app;
