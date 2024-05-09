@@ -9,7 +9,6 @@ const useConversations = () => {
     try {
       setLoading(true);
       const res = await apis.getConversations();
-      console.log('res', res);
       if (res.status === 200) {
         setConversations(res.data);
       }

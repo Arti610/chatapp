@@ -20,10 +20,10 @@ const MessageContainer = () => {
           {selectedConversation ? selectedConversation.name : ""}
         </span>
       </div>
-
+        
       <Messages />
       <MessageInput />
-      
+
     </div>
   ) : (
     <NoChatSelected />

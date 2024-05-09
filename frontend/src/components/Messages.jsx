@@ -3,12 +3,12 @@ import useGetMessage from "../hooks/useGetMessage";
 import useConversation from "../zustand/useConversation";
 import Message from "./Message";
 import Skeleton from "./Skeleton";
+import useListenMessage from "../hooks/useListenMessage";
 
 const Messages = () => {
   const { loading, messages } = useGetMessage();
   const lastMessageRef = useRef();
-console.log('messages',messages);
-
+  useListenMessage();
   useEffect(() => {
     setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });

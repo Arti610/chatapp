@@ -6,8 +6,8 @@ const Conversations = () => {
 
   return (
     <div className="py-10  flex flex-col overflow-auto">
-      {conversations.map((conversation, i) => {
-        return <Conversation item={conversation} key={i} />;
+      {conversations.map((conversation) => {
+        return <Conversation item={conversation} key={conversation._id} />;
       })}
 
       {loading ? (

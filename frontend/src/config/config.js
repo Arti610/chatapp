@@ -6,10 +6,11 @@ const api = axios.create({
   baseURL: baseurl,
 });
 
+api.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 api.interceptors.request.use(async (config) => {
   try {
     let token;
-    const storage = await localStorage.getItem("chat-user");
+    const storage = localStorage.getItem("chat-user");
 
     if (storage) {
       const parsedToken = JSON.parse(storage);
@@ -18,6 +19,7 @@ api.interceptors.request.use(async (config) => {
     
     if (token !== null) {
       config.headers["Authorization"] = `${token}`;
+
     }
 
     return config;
