@@ -36,6 +36,7 @@ const Conversation = ({ item }) => {
               {item && item.name ? item.name : "User Name"}
             </p>
           </div>
+            <span>{isOnline ? 'online' : ""}</span>
         </div>
       </div>
 
