@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import connectDB from "./db/connnectDB.js";
 import { server } from "./socket/Socket.js";
 
-const PORT = process.env.PORT || 5000;
 dotenv.config();
+const PORT = process.env.PORT || 5000;
 
 connectDB()
   .then(() => {
@@ -14,5 +14,3 @@ connectDB()
   .catch((error) => {
     console.log("mongodb connection error", error);
   });
-
-  
